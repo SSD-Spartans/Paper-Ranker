@@ -1,0 +1,102 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <title>Paper ranker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/results-style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+<div class="container-fluid" id="results-body-container">
+    <div class="container-fluid row bg-warning">
+        <div class="container col-lg-3 mt-2" id="results-iiit_left_div">
+            <img src="../static/assets/iiit.png" class="float-start img-fluid">
+        </div>
+        <div class="container col-lg-6 mt-2 pt-5 pb-5" id="results-searchbar_container">
+            <div class="input-group">
+                <form method="post" action="{% url "search" %}">
+                    {% csrf_token %}
+                    <input type="text" name="search_query" id="search_top" class="form-control"
+                           placeholder="Search For Papers" required="true"/>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="container col-lg-3 mt-2" id="results-iiit_right_div">
+            <img src="../static/assets/iiit.png" class="float-end img-fluid">
+        </div>
+    </div>
+    {% if not valid and request.method == "POST" %}
+        <h2>Invalid Search query</h2>
+    {% else %}
+        <div class="container mt-2" id="results-search_results_container">
+            <ul class="list-group">
+                {% for paper in papers %}
+                    <div class="container">
+                        <a href="{{ paper.url }}" class="link-dark">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="container col-md-11">
+                                        <div class="container">
+                                            <p class="text-left">Title: {{ paper.title }}</p>
+                                        </div>
+                                        <div class="container">
+                                            <p class="text-left">Year: {{ paper.published_year }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="container col-md-1 bg-warning">
+                                        <p class="text-center h1">{{ paper.conference.rank }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                    </div>
+                {% endfor %}
+                {#                <div class="container">#}
+                {#                    <a href="https://www.google.com" class="link-dark">#}
+                {#                        <li class="list-group-item">#}
+                {#                            <div class="row">#}
+                {#                                <div class="container col-md-11">#}
+                {#                                    <div class="container">#}
+                {#                                        <p class="text-left">Title: Dummy Paper 2</p>#}
+                {#                                    </div>#}
+                {#                                    <div class="container">#}
+                {#                                        <p class="text-left">Author: A2</p>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                                <div class="container col-md-1 bg-secondary">#}
+                {#                                    <p class="text-center h1">B</p>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                    </a>#}
+                {#                </div>#}
+                {#                <div class="container">#}
+                {#                    <a href="https://www.google.com" class="link-dark">#}
+                {#                        <li class="list-group-item">#}
+                {#                            <div class="row">#}
+                {#                                <div class="container col-md-11">#}
+                {#                                    <div class="container">#}
+                {#                                        <p class="text-left">Title: Dummy paper 3</p>#}
+                {#                                    </div>#}
+                {#                                    <div class="container">#}
+                {#                                        <p class="text-left">Author: A3</p>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                                <div class="container col-md-1 bg-bronze">#}
+                {#                                    <p class="text-center h1">C</p>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                    </a>#}
+                {#                </div>#}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
