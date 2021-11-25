@@ -21,6 +21,8 @@
                                 <form method="post" action="{% url "login" %}">
                                     {% csrf_token %}
                                     <div class="login">
+                                        <br>
+                                        <br>
                                         <div class="group"><label for="user" class="label">Username<span
                                                 class="text-danger"> *</span></label> <input id="user" type="text"
                                                                                              class="input"
@@ -44,6 +46,7 @@
                                 <form method="post" action="{% url "signup" %}">
                                     {% csrf_token %}
                                     <div class="sign-up-form">
+                                        <br>
                                         <div class="group"><label for="pass" class="label">Email Address<span
                                                 class="text-danger"> *</span></label> <input id="email" type="text"
                                                                                              class="input"
