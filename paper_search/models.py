@@ -16,6 +16,7 @@ class ConferenceRank(models.Model):
     title = models.CharField(max_length=20, blank=False)
     name = models.CharField(max_length=200, blank=True, default=None)
     rank = models.CharField(max_length=10)
+    priority = models.IntegerField(default=4)
 
     class Meta:
         verbose_name = "Conference Rank"

@@ -16,7 +16,7 @@ def paper_details(keyword):
     papers = []
     f = 0
     counter = 1000
-    while counter <= 10000:
+    while counter <= 1000:
         if len(papers) >= 500:
             break
         response = requests.get(

@@ -15,7 +15,7 @@ def search(request):
         search_query = to_lower(search_query)
         if Category.objects.filter(title=search_query).exists():
             category = Category.objects.get(title=search_query)
-            papers = PaperDetail.objects.filter(category=category)
+            papers = PaperDetail.objects.filter(category=category).order_by('conference__priority')
             return render(request, 'search.html', {'valid': True, 'papers': papers})
         else:
             new_search_query = Category.objects.create(title=search_query)
@@ -33,7 +33,7 @@ def search(request):
                 else:
                     # add category if not there to the current paper
                     pass
-            papers = PaperDetail.objects.filter(category=new_search_query)
+            papers = PaperDetail.objects.filter(category=new_search_query).order_by('conference__priority')
             return render(request, 'search.html', {'valid': True, 'papers': papers})
     elif request.method == "GET":
         return render(request, 'search.html', None)
@@ -56,7 +56,17 @@ def add_paper(request):
         else:
             new_category = Category.objects.get(title=category)
         if not ConferenceRank.objects.filter(title=conf_title).exists():
-            new_conference = ConferenceRank.objects.create(title=conf_title, name=conf_name, rank=conf_rank)
+            priority = 0
+            if conf_rank == "A+":
+                priority = 1
+            elif conf_rank == "A":
+                priority = 2
+            elif conf_rank == "B":
+                priority = 3
+            else:
+                priority = 4
+            new_conference = ConferenceRank.objects.create(title=conf_title, name=conf_name, rank=conf_rank,
+                                                           priority=priority)
             new_conference.save()
         else:
             new_conference = ConferenceRank.objects.get(title=conf_title)
@@ -125,7 +135,15 @@ def add_conference_details(request):
     for item in conferences:
         if len(item) == 3:
             if not ConferenceRank.objects.filter(title=item[0]).exists():
-                conference = ConferenceRank.objects.create(title=item[0], name=item[1], rank=item[2])
+                priority = 0
+                if item[2] == "A+":
+                    priority = 1
+                elif item[2] == "A":
+                    priority = 2
+                elif item[2] == "B":
+                    priority = 3
+                else:
+                    priority = 4
+                conference = ConferenceRank.objects.create(title=item[0], name=item[1], rank=item[2], priority=priority)
                 conference.save()
     return "Done"
-
