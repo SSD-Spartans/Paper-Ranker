@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}
+    Log In/Sign Up
+{% endblock title %}
+{% block scripts %}
+    <link rel="stylesheet" href="../static/assets/css/login.css">
+{% endblock %}
+{% block content %}
+    <section class="login/signuppage"
+             style="background-image: url(../static/assets/img/about.jpg);background-repeat: round;">
+        <div class="row">
+            <div class="col-md-6 mx-auto p-0">
+                <div class="card">
+                    <div class="login-box">
+                        <div class="login-snip"><input id="tab-1" type="radio" name="tab" class="sign-in" checked><label
+                                for="tab-1" class="tab">Login</label> <input id="tab-2" type="radio" name="tab"
+                                                                             class="sign-up"><label for="tab-2"
+                                                                                                    class="tab">Sign
+                            Up</label>
+                            <div class="login-space">
+                                <form method="post" action="{% url "login" %}">
+                                    {% csrf_token %}
+                                    <div class="login">
+                                        <div class="group"><label for="user" class="label">Username<span
+                                                class="text-danger"> *</span></label> <input id="user" type="text"
+                                                                                             class="input"
+                                                                                             name="username"
+                                                                                             placeholder="Enter your username"
+                                                                                             required="true"></div>
+                                        <div class="group"><label for="pass" class="label">Password<span
+                                                class="text-danger"> *</span></label> <input id="pass" type="password"
+                                                                                             class="input"
+                                                                                             name="password"
+                                                                                             data-type="password"
+                                                                                             placeholder="Enter your password"
+                                                                                             required="true"></div>
+
+                                        <div class="group"><input type="submit" class="button" value="Sign In"
+                                                                  onclick="function1()"></div>
+                                        <div class="hr"></div>
+
+                                    </div>
+                                </form>
+                                <form method="post" action="{% url "signup" %}">
+                                    {% csrf_token %}
+                                    <div class="sign-up-form">
+                                        <div class="group"><label for="pass" class="label">Email Address<span
+                                                class="text-danger"> *</span></label> <input id="email" type="text"
+                                                                                             class="input"
+                                                                                             name="email"
+                                                                                             placeholder="Enter your email address"
+                                                                                             required="true"></div>
+                                        <div class="group"><label for="user" class="label">Username<span
+                                                class="text-danger"> *</span></label> <input id="user1" type="text"
+                                                                                             class="input"
+                                                                                             name="username"
+                                                                                             placeholder="Create your Username"
+                                                                                             required="true"></div>
+                                        <div class="group"><label for="pass" class="label">Password<span
+                                                class="text-danger"> *</span></label> <input id="pass1" type="password"
+                                                                                             class="input"
+                                                                                             name="password"
+                                                                                             data-type="password"
+                                                                                             placeholder="Create your password"
+                                                                                             required="true"
+                                                                                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                                        </div>
+                                        <div class="group"><label><span class="text-danger"> *</span>password must
+                                            contain
+                                            at least one number ,one uppercase ,lowercase letter,one special charecter,
+                                            and
+                                            at least 8 or more characters</label>
+
+                                            <div class="group"><input type="submit" class="button" value="Sign Up"
+                                                                      onclick="function2()"></div>
+
+                                            <div class="foot"><label for="tab-1">Already Member?</label></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

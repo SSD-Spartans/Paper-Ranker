@@ -1,7 +1,28 @@
 # this script fetches 9900 paper details from semantic scholar api in a list of dictionaries
 # I am getting these details regarding paper using this script =>title,authors,url,venue,year,fieldsOfStudy.
+import re
+
 import requests
 from bs4 import BeautifulSoup
+
+
+def to_lower(text):
+    for f in re.findall("([A-Z]+)", text):
+        text = text.replace(f, f.lower())
+    return text
+
+
+def paper_details(keyword):
+    papers = []
+    response = requests.get("https://dblp.org/search/publ/api?q=" + keyword + "&h=1000&format=json")
+    response = response.json()
+    temp = response['result']['hits']['hit']
+    for item in temp:
+        info = item['info']
+        if info['type'] == "Conference and Workshop Papers":
+            papers.append(info)
+
+    return papers
 
 
 def get_conference_ranks():
@@ -24,16 +45,18 @@ def get_conference_ranks():
     return conferences
 
 
-def get_paper_details():
-    paper_details = []
-    for i in range(0, 9800, 100):
-        response = requests.get(
-            "https://api.semanticscholar.org/graph/v1/paper/search?query=machine+learning&offset=" + str(
-                i) + "&limit=100&fields=title,authors,url,venue,year,fieldsOfStudy")
-        if (response.status_code == 200):
-            paper_detail = response.json()
-            paper_details.append(paper_detail)
-    return paper_details
+
+
+# def get_paper_details():
+#     paper_details = []
+#     for i in range(0, 9800, 100):
+#         response = requests.get(
+#             "https://api.semanticscholar.org/graph/v1/paper/search?query=machine+learning&offset=" + str(
+#                 i) + "&limit=100&fields=title,authors,url,venue,year,fieldsOfStudy")
+#         if (response.status_code == 200):
+#             paper_detail = response.json()
+#             paper_details.append(paper_detail)
+#     return paper_details
 
 
 ''' format of data in listofpaperdetails holding all papers
