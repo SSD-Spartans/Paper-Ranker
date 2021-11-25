@@ -14,31 +14,31 @@
                         <h3>IIIT-H</h3>
                         <div class="card">
                             <h5 class="text-center mb-4">Adding a new paper</h5>
-                            <form method="post" action="{% url "add-paper" %}" class="form-card" onsubmit="event.preventDefault()">
+                            <form method="post" action="{% url "add-paper" %}" class="form-card">
                                 {% csrf_token %}
                                 <div class="row justify-content-between text-left">
-                                    <div class="form-group col-sm-6 flex-column d-flex"><label
-                                            class="form-control-label px-3">Author Name<span
-                                            class="text-danger"> *</span></label> <input type="text" id="fname"
-                                                                                         name="fname"
-                                                                                         placeholder="Enter your name"
-                                                                                         required></div>
                                     <div class="form-group col-sm-6 flex-column d-flex"><label
                                             class="form-control-label px-3">Paper Name<span
                                             class="text-danger"> *</span></label> <input type="text" id="lname"
                                                                                          name="paper_title"
                                                                                          placeholder="Enter your paper name"
                                                                                          required></div>
+                                     <div class="form-group col-sm-6 flex-column d-flex"><label
+                                            class="form-control-label px-3">Paper Published Year<span
+                                            class="text-danger"> *</span></label> <input type="text" id="fname"
+                                                                                         name="paper_year"
+                                                                                         placeholder="Enter published year"
+                                                                                         required></div>
                                 </div>
                                 <div class="row justify-content-between text-left">
                                     <div class="form-group col-sm-6 flex-column d-flex"><label
                                             class="form-control-label px-3"> Category <span class="text-danger"> *</span></label>
                                         <input type="text" id="keywords" name="category"
-                                               placeholder="enter all the key words related" required></div>
+                                               placeholder="enter category of the paper" required></div>
                                     <div class="form-group col-sm-6 flex-column d-flex"><label
                                             class="form-control-label px-3">Conference Abbreviation<span
-                                            class="text-danger"> *</span></label> <input type="text" id="mob" name="conference_name"
-                                                                                         placeholder="enter Conference name"
+                                            class="text-danger"> *</span></label> <input type="text" id="mob" name="conference_title"
+                                                                                         placeholder="enter Conference Abbreviation"
                                                                                          required></div>
                                 </div>
                                 <div class="row justify-content-between text-left">
@@ -48,11 +48,16 @@
                                         </label> <input type="text" id="job" name="conference_rank"
                                                         placeholder="enter conference rank" required>
                                     </div>
+                                     <div class="form-group col-sm-6 flex-column d-flex"><label
+                                            class="form-control-label px-3">Conference Name<span
+                                            class="text-danger"> *</span></label> <input type="text" id="mob" name="conference_name"
+                                                                                         placeholder="enter Conference name"
+                                                                                         required></div>
                                 </div>
                                 <div class="row justify-content-between text-left">
                                     <div class="form-group col-12 flex-column d-flex"><label
                                             class="form-control-label px-3">Link of the paper<span class="text-danger"> *</span></label>
-                                        <input type="text" value="link" id="ans" name="paper_url"
+                                        <input type="text" id="ans" name="paper_url"
                                                placeholder="enter link of the paper" required></div>
                                 </div>
                                 <div class="row justify-content-end">

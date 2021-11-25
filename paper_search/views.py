@@ -56,7 +56,7 @@ def add_paper(request):
         else:
             new_category = Category.objects.get(title=category)
         if not ConferenceRank.objects.filter(title=conf_title).exists():
-            new_conference = Category.objects.create(title=conf_title, name=conf_name, rank=conf_rank)
+            new_conference = ConferenceRank.objects.create(title=conf_title, name=conf_name, rank=conf_rank)
             new_conference.save()
         else:
             new_conference = ConferenceRank.objects.get(title=conf_title)
@@ -129,21 +129,3 @@ def add_conference_details(request):
                 conference.save()
     return "Done"
 
-# @user_passes_test(lambda u: u.is_superuser)
-# def update_db(request):
-#     paper_details = get_paper_details()
-#     if not Category.objects.filter(title="machine learning").exists():
-#         category = Category.objects.create(title="machine learning")
-#         category.save()
-#     else:
-#         category = Category.objects.get(title="machine learning")
-#     for item in paper_details:
-#         for element in item["data"]:
-#             if not PaperDetail.objects.filter(title=element["title"]).exists():
-#                 if ConferenceRank.objects.filter(title=element["venue"]).exists():
-#                     paper_conference = ConferenceRank.objects.get(title=element["venue"])
-#                     paper_detail = PaperDetail.objects.create(title=element["title"], published_year=element["year"],
-#                                                               url=element["url"], category=category,
-#                                                               conference=paper_conference)
-#                     paper_detail.save()
-#     return

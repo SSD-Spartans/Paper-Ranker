@@ -14,13 +14,29 @@ def to_lower(text):
 
 def paper_details(keyword):
     papers = []
-    response = requests.get("https://dblp.org/search/publ/api?q=" + keyword + "&h=1000&format=json")
-    response = response.json()
-    temp = response['result']['hits']['hit']
-    for item in temp:
-        info = item['info']
-        if info['type'] == "Conference and Workshop Papers":
-            papers.append(info)
+    f = 0
+    counter = 1000
+    while counter <= 10000:
+        if len(papers) >= 500:
+            break
+        response = requests.get(
+            "https://dblp.org/search/publ/api?q=" + keyword + "&h=1000&f=" + str(f) + "&format=json")
+        if response.status_code != 500:
+            response = response.json()
+            temp_dict = response['result']['hits']
+            if 'hit' in temp_dict.keys():
+                temp = response['result']['hits']['hit']
+                if len(temp) == 0:
+                    return papers
+
+                for item in temp:
+                    info = item['info']
+                    if info['type'] == "Conference and Workshop Papers":
+                        papers.append(info)
+                f = f + 1000
+                counter = counter + 1000
+        else:
+            return papers
 
     return papers
 
