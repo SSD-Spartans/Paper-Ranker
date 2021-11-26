@@ -16,7 +16,7 @@ def paper_details(keyword):
     papers = []
     f = 0
     counter = 1000
-    while counter <= 1000:
+    while counter <= 5000:
         if len(papers) >= 500:
             break
         response = requests.get(
@@ -35,6 +35,8 @@ def paper_details(keyword):
                         papers.append(info)
                 f = f + 1000
                 counter = counter + 1000
+            else:
+                return papers
         else:
             return papers
 
@@ -59,8 +61,6 @@ def get_conference_ranks():
         cols = [ele.text.strip() for ele in cols]
         conferences.append([ele for ele in cols if ele])
     return conferences
-
-
 
 
 # def get_paper_details():

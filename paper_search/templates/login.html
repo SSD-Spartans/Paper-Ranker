@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="../static/assets/css/login.css">
 {% endblock %}
 {% block content %}
+     <div id=message>
+            {% include "messages.html" %}
+        </div>
     <section class="login/signuppage"
              style="background-image: url(../static/assets/img/about.jpg);background-repeat: round;">
         <div class="row">
@@ -37,8 +40,7 @@
                                                                                              placeholder="Enter your password"
                                                                                              required="true"></div>
 
-                                        <div class="group"><input type="submit" class="button" value="Sign In"
-                                                                  onclick="function1()"></div>
+                                        <div class="group"><input type="submit" class="button" value="Sign In"></div>
                                         <div class="hr"></div>
 
                                     </div>
@@ -74,8 +76,7 @@
                                             and
                                             at least 8 or more characters</label>
 
-                                            <div class="group"><input type="submit" class="button" value="Sign Up"
-                                                                      onclick="function2()"></div>
+                                            <div class="group"><input type="submit" class="button" value="Sign Up"></div>
 
                                             <div class="foot"><label for="tab-1">Already Member?</label></div>
                                         </div>

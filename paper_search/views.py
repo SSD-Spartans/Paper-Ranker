@@ -6,6 +6,7 @@ from paper_search.models import Category, PaperDetail, ConferenceRank
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 @require_http_methods(["POST", "GET"])
@@ -74,6 +75,7 @@ def add_paper(request):
             new_paper = PaperDetail.objects.create(title=paper_title, published_year=paper_year, url=paper_url,
                                                    category=new_category, conference=new_conference)
             new_paper.save()
+            messages.success(request, 'Paper added successfully!')
         return render(request, 'add_paper.html', {'msg': "Paper added successfully"})
     else:
         return render(request, 'add_paper.html', None)
@@ -87,11 +89,11 @@ def log_in(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            ret_message = "User Logged in Successfully"
-            return render(request, 'search.html', {'msg': ret_message})
+            messages.success(request, 'User Logged in Successfully!')
+            return render(request, 'search.html', None)
         else:
-            ret_message = "No such user exists"
-            return render(request, 'login.html', {'msg': ret_message})
+            messages.success(request, 'Invalid Username or Password!')
+            return render(request, 'login.html', None)
     else:
         return render(request, 'login.html', None)
 
@@ -100,6 +102,7 @@ def log_in(request):
 @require_http_methods(["POST", "GET"])
 def log_out(request):
     logout(request)
+    messages.success(request, 'User Logged out Successfully!')
     return render(request, 'search.html', None)
 
 
@@ -110,13 +113,15 @@ def sign_up(request):
         email = request.POST['email']
         password = request.POST['password']
         if User.objects.filter(username=username).exists():
-            return render(request, 'login.html', {'msg': "User already exists"})
+            messages.error(request, 'User already exists!')
+            return render(request, 'login.html', None)
         else:
             user = User.objects.create_user(username=username,
                                             email=email,
                                             password=password)
             user.save()
-            return render(request, 'login.html', {'msg': "User created successfully"})
+            messages.success(request, 'User created Successfully!')
+            return render(request, 'login.html', None)
     else:
         return render(request, 'login.html', None)
 
