@@ -64,12 +64,12 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link" href="search">Home</a></li>
+                <li><a class="nav-link" href="{% url "search" %}">Home</a></li>
                 {% if user.is_authenticated %}
-                    <li><a class="nav-link" href="add-paper">Add Paper</a></li>
-                    <li><a class="nav-link" href="logout">Logout</a></li>
+                    <li><a class="nav-link" href="{% url "add-paper" %}">Add Paper</a></li>
+                    <li><a class="nav-link" href="{% url "logout" %}">Logout</a></li>
                 {% else %}
-                    <li><a class="nav-link" href="login">Login</a></li>
+                    <li><a class="nav-link" href="{% url "login" %}">Login</a></li>
                 {% endif %}
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>

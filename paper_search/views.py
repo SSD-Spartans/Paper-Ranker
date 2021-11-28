@@ -45,6 +45,7 @@ def search(request):
 def add_paper(request):
     if request.method == "POST":
         category = request.POST['category']
+        category = to_lower(category)
         conf_title = request.POST["conference_title"]
         conf_name = request.POST["conference_name"]
         conf_rank = request.POST["conference_rank"]
